@@ -2,7 +2,7 @@
 
 A Swiss Army Knife for CTFs & Cybersecurity Tasks.
 
-![CTF Helper Screenshot](ctf-helper/modules/ctf-helper-image.png)
+![CTF Helper Screenshot](modules/ctf-helper-image.png)
 
 ---
 
