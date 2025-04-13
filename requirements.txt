@@ -27,6 +27,7 @@ requests==2.31.0
 beautifulsoup4==4.13.3
 lxml==5.3.1
 aiohttp==3.10.11
+python-whois==0.7.3
 
 # --- CLI Helper Tool Utilities ---
 click==8.1.8
@@ -35,6 +36,7 @@ pyfiglet==1.0.2
 rich==13.7.1
 tabulate==0.9.0
 ipython==8.22.2
+termcolor==2.4.0
 
 # --- Optional Dev Tools / Debugging ---
 pytest==8.1.1
