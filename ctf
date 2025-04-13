@@ -1,0 +1,92 @@
+#!/usr/bin/env python3
+
+import argparse
+from banner import print_banner
+from modules import brute
+from modules.web_exploits import WebExploits
+from modules.osint import OSINT
+from modules.utils import check_network_status, get_ip_from_domain
+
+def main():
+    print_banner()
+
+    parser = argparse.ArgumentParser(description='CTF Helper CLI Tool')
+    parser.add_argument('--decode', help='Decode a string (base64, hex, etc.)')
+    parser.add_argument('--jwt-decode', help='Decode a JWT token')
+    parser.add_argument('--jwt-brute', help="Brute-force JWT using wordlist", nargs=2, metavar=('TOKEN', 'WORDLIST'))
+    # Web Exploits
+    parser.add_argument('--sqli', help='Generate SQL injection payload', action='store_true')
+    parser.add_argument('--xss', help='Generate XSS payload', action='store_true')
+    parser.add_argument('--cmd-inj', help='Generate Command Injection payload', action='store_true')
+    parser.add_argument('--file-inc', help='Generate File Inclusion payload', action='store_true')
+    parser.add_argument('--csrf', help='Generate CSRF Token', action='store_true')
+    # OSINT
+    parser.add_argument('--dns-lookup', help='Perform DNS lookup', metavar='DOMAIN')
+    parser.add_argument('--whois-lookup', help='Perform WHOIS lookup', metavar='DOMAIN')
+    parser.add_argument('--geolocate', help='Geolocate an IP address', metavar='IP')
+    parser.add_argument('--shodan', help='Perform Shodan lookup on IP', metavar='IP')
+    # Add more modules here...
+    # Add the network status argument
+    parser.add_argument('--network-status', help='Check network status', action='store_true')
+
+    args = parser.parse_args()
+
+    if args.decode:
+        from modules import decoder
+        decoder.decode_string(args.decode)
+
+    elif args.jwt_decode:
+        from modules import jwt_tool
+        jwt_tool.decode_jwt(args.jwt_decode)
+
+    elif args.jwt_brute:
+        token, wordlist_path = args.jwt_brute
+        brute.jwt_brute_force(token, wordlist_path)
+
+    # Web Exploit Options
+    elif args.sqli:
+        web_exploits = WebExploits()
+        print("SQL Injection Payload: ", web_exploits.generate_sqli_payload())
+
+    elif args.xss:
+        web_exploits = WebExploits()
+        print("XSS Payload: ", web_exploits.generate_xss_payload())
+
+    elif args.cmd_inj:
+        web_exploits = WebExploits()
+        print("Command Injection Payload: ", web_exploits.generate_command_injection_payload())
+
+    elif args.file_inc:
+        web_exploits = WebExploits()
+        print("File Inclusion Payload: ", web_exploits.generate_file_inclusion_payload())
+
+    elif args.csrf:
+        web_exploits = WebExploits()
+        print("CSRF Token: ", web_exploits.generate_csrf_token())
+
+    # OSINT Lookups
+    elif args.dns_lookup:
+        osint = OSINT()
+        print(f"DNS Lookup for {args.dns_lookup}: {osint.dns_lookup(args.dns_lookup)}")
+
+    elif args.whois_lookup:
+        osint = OSINT()
+        print(f"WHOIS Lookup for {args.whois_lookup}: {osint.whois_lookup(args.whois_lookup)}")
+
+    elif args.geolocate:
+        osint = OSINT()
+        print(f"Geolocation for IP {args.geolocate}: {osint.ip_geolocation(args.geolocate)}")
+
+    elif args.shodan:
+        osint = OSINT()
+        print(f"Shodan Lookup for IP {args.shodan}: {osint.search_shodan(args.shodan)}")
+
+    # Utility Functions
+    elif args.network_status:
+        print(check_network_status())
+
+    else:
+        parser.print_help()
+
+if __name__ == "__main__":
+    main()
