@@ -11,12 +11,11 @@ python-dotenv==1.0.1
 # --- Database ---
 SQLAlchemy==2.0.29
 PyMySQL==1.1.0
-sqlite3==0.0.1  # optional if you use SQLite directly
 
 # --- Security / CTF Tools ---
 PyJWT==2.10.1
 pycryptodomex==3.20.0
-cryptography==43.0.0
+cryptography==42.0.5
 bcrypt==4.2.0
 impacket==0.12.0
 pypykatz==0.6.10
