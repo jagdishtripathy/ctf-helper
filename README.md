@@ -56,7 +56,7 @@ source myenv/bin/activate
 pip3 install -r requirements.txt
 
 ```
-You can now run the tool using ctf from anywhere.
+You can now run the tool using `ctf` from anywhere.
 
 ### 🚀 Usage Examples
 
