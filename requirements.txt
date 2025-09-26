@@ -10,7 +10,7 @@ python-dotenv==1.0.1
 
 # --- Database ---
 SQLAlchemy==2.0.29
-PyMySQL==1.1.0
+PyMySQL==1.1.1
 
 # --- Security / CTF Tools ---
 PyJWT==2.10.1
