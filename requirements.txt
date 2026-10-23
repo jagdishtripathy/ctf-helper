@@ -17,7 +17,7 @@ PyMySQL==1.1.2
 
 # Security / CTF tools
 PyJWT==2.15.1
-pycryptodomex==3.23.0
+pycryptodomex==3.24.1
 cryptography==50.0.2
 bcrypt==5.0.0
 impacket==0.13.0
