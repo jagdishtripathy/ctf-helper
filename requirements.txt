@@ -21,7 +21,7 @@ pycryptodomex==3.24.1
 cryptography==50.0.2
 bcrypt==5.0.0
 impacket==0.13.1
-pypykatz==0.6.10
+pypykatz==0.6.13
 mitmproxy==12.3.0
 hashID==3.1.4
 
