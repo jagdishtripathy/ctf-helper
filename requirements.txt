@@ -40,7 +40,7 @@ rich==14.2.0
 tabulate==0.10.0
 ipython==9.17.1
 termcolor==3.2.0
-tqdm==4.67.1
+tqdm==4.70.1
 
 # Development tools
 pytest==9.1.1
