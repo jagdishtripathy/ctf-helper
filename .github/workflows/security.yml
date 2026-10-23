@@ -17,10 +17,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.12"
           cache: pip
@@ -36,6 +36,9 @@ jobs:
 
       - name: Compile Python sources
         run: python -m py_compile ctf banner.py modules/*.py
+
+      - name: Run unit tests
+        run: python -m pytest -q
 
       - name: Check CLI help
         run: python ctf --help
