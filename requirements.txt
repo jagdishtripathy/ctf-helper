@@ -1,43 +1,46 @@
-# --- Web Frameworks ---
-Flask==3.1.0
+# CTF Helper dependency pins.
+# Keep these pins current with pip-audit / Dependabot before releases.
+
+# Web frameworks
+Flask==3.1.2
 Flask-Login==0.6.3
 Flask-SQLAlchemy==3.1.1
 Flask-WTF==1.2.2
-fastapi==0.115.5
-uvicorn==0.29.0
-Jinja2==3.1.5
-python-dotenv==1.0.1
+fastapi==0.120.0
+uvicorn==0.38.0
+Jinja2==3.1.6
+python-dotenv==1.1.1
 
-# --- Database ---
-SQLAlchemy==2.0.29
-PyMySQL==1.1.1
+# Database
+SQLAlchemy==2.0.44
+PyMySQL==1.1.2
 
-# --- Security / CTF Tools ---
-PyJWT==2.10.1
-pycryptodomex==3.20.0
-cryptography==46.0.5
-bcrypt==4.2.0
-impacket==0.12.0
+# Security / CTF tools
+PyJWT==2.14.0
+pycryptodomex==3.23.0
+cryptography==46.0.3
+bcrypt==5.0.0
+impacket==0.13.0
 pypykatz==0.6.10
-mitmproxy==11.1.2
+mitmproxy==12.3.0
 hashID==3.1.4
 
-# --- Parsing, Web Requests, and OSINT ---
-requests==2.31.0
-beautifulsoup4==4.13.3
-lxml==5.3.1
-aiohttp==3.13.3
-python-whois==0.7.3
+# Parsing, web requests, and OSINT
+requests==2.32.5
+beautifulsoup4==4.14.2
+lxml==6.0.2
+aiohttp==3.14.5
+python-whois==0.9.5
 
-# --- CLI Helper Tool Utilities ---
-click==8.1.8
+# CLI utilities
+click==8.3.0
 colorama==0.4.6
-pyfiglet==1.0.2
-rich==13.7.1
+pyfiglet==1.0.4
+rich==14.2.0
 tabulate==0.9.0
-ipython==8.22.2
-termcolor==2.4.0
+ipython==9.6.0
+termcolor==3.2.0
 
-# --- Optional Dev Tools / Debugging ---
-pytest==8.1.1
-httpie==3.2.2
+# Development tools
+pytest==8.4.2
+httpie==3.2.4
