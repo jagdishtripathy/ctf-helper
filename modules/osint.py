@@ -1,55 +1,76 @@
 #!/usr/bin/env python3
 
-import requests
+import ipaddress
+import os
 import socket
+
+import requests
 import whois
 
+
 class OSINT:
-    def __init__(self):
-        pass
+    """Small helpers for authorized OSINT lookups."""
 
     def dns_lookup(self, domain):
-        """
-        Performs a DNS lookup for the given domain.
-        """
+        """Resolve a domain to its first IPv4 address."""
         try:
-            ip = socket.gethostbyname(domain)
-            return ip
+            return socket.gethostbyname(domain)
         except socket.gaierror:
             return f"Unable to resolve domain: {domain}"
 
     def whois_lookup(self, domain):
-        """
-        Performs a WHOIS lookup for the given domain.
-        """
+        """Perform a WHOIS lookup for a domain."""
         try:
-            w = whois.whois(domain)
-            return w
-        except Exception as e:
-            return f"Error fetching WHOIS information: {str(e)}"
+            return whois.whois(domain)
+        except Exception as exc:
+            return f"Error fetching WHOIS information: {exc}"
 
     def ip_geolocation(self, ip):
-        """
-        Uses an external API to fetch geolocation information for the given IP address.
-        """
-        url = f"https://ipinfo.io/{ip}/json"
-        response = requests.get(url)
-        if response.status_code == 200:
+        """Fetch IP geolocation data from ipinfo.io."""
+        try:
+            ipaddress.ip_address(ip)
+        except ValueError:
+            return "Invalid IP address."
+
+        try:
+            response = requests.get(
+                f"https://ipinfo.io/{ip}/json",
+                timeout=10,
+            )
+            response.raise_for_status()
             return response.json()
-        else:
-            return f"Unable to retrieve geolocation for IP: {ip}"
+        except requests.RequestException:
+            return "Unable to retrieve geolocation data. Check network access and try again."
+        except ValueError:
+            return "The geolocation service returned invalid JSON."
 
     def search_shodan(self, ip):
-        """
-        Uses the Shodan API to search for services and vulnerabilities related to the given IP.
-        You would need a Shodan API key for this to work.
-        """
-        # Ensure that you replace 'YOUR_SHODAN_API_KEY' with an actual Shodan API key.
-        api_key = "cFfC25HDsLNW4TaaPIk4Vekjgpk4P522"
-        url = f"https://api.shodan.io/shodan/host/{ip}?key={api_key}"
-        response = requests.get(url)
-        if response.status_code == 200:
-            return response.json()
-        else:
-            return f"Unable to fetch Shodan data for IP: {ip}"
+        """Look up a host using SHODAN_API_KEY from the environment."""
+        api_key = os.environ.get("SHODAN_API_KEY")
+        if not api_key:
+            return (
+                "Shodan API key not configured. Set the SHODAN_API_KEY "
+                "environment variable and try again."
+            )
 
+        try:
+            ipaddress.ip_address(ip)
+        except ValueError:
+            return "Invalid IP address."
+
+        try:
+            response = requests.get(
+                f"https://api.shodan.io/shodan/host/{ip}",
+                params={"key": api_key},
+                timeout=10,
+            )
+            if response.status_code == 401:
+                return "Shodan rejected the API key. Verify or regenerate it."
+            if response.status_code == 404:
+                return f"No Shodan host data found for IP: {ip}"
+            response.raise_for_status()
+            return response.json()
+        except requests.RequestException:
+            return "Unable to fetch Shodan data. Check network access and the API key."
+        except ValueError:
+            return "Shodan returned invalid JSON."
