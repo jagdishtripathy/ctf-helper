@@ -31,6 +31,7 @@ beautifulsoup4==4.15.0
 lxml==6.1.0
 aiohttp==3.14.5
 python-whois==0.9.6
+brotli==1.2.1
 
 # CLI utilities
 click==8.3.0
