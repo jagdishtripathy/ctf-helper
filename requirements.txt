@@ -13,7 +13,7 @@ python-dotenv==1.2.2
 
 # Database
 SQLAlchemy==2.0.55
-PyMySQL==1.1.2
+PyMySQL==1.2.3
 
 # Security / CTF tools
 PyJWT==2.15.1
