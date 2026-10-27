@@ -36,7 +36,7 @@ python-whois==0.9.6
 click==8.3.0
 colorama==0.4.6
 pyfiglet==1.0.4
-rich==14.2.0
+rich==15.0.0
 tabulate==0.10.0
 ipython==9.17.1
 termcolor==3.2.0
